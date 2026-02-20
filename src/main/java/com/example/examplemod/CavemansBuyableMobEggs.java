@@ -34,7 +34,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @Mod(CavemansBuyableMobEggs.MOD_ID)
 public class CavemansBuyableMobEggs {
     // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "examplemod";
+    public static final String MOD_ID = "cavemans_buyable_mob_eggs";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
