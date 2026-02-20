@@ -33,7 +33,7 @@ displayName="${mod_name}" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+displayURL="https://github.com/CavemanTechandGamming/Caveman-s-Buyable-Mob-Eggs-NeoForge/tree/main" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
@@ -42,11 +42,11 @@ displayName="${mod_name}" #mandatory
 #credits="" #optional
 
 # The authors of the mod, displayed in the mod UI (optional)
-#authors=""
+authors="Caveman117"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Example mod description.
+Every mob spawn egg in-game is buyable from a custom villager that uses a spawner as its workbench. Spawners are now craftable and set to type based on the mob egg you put in it.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
