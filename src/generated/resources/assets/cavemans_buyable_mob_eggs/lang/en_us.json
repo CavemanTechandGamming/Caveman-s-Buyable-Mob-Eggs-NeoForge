@@ -1,0 +1,5 @@
+{
+  "config.cavemans_buyable_mob_eggs.common.enableBossMobTrades": "Enable boss mob trades (level 5)",
+  "config.cavemans_buyable_mob_eggs.title": "Caveman's Buyable Mob Eggs Config",
+  "entity.minecraft.villager.cavemans_buyable_mob_eggs.mob_wrangler": "Mob Wrangler"
+}
