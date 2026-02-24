@@ -22,6 +22,13 @@ public class ModLanguageProvider extends LanguageProvider {
         add("entity.minecraft.villager." + CavemansBuyableMobEggs.MOD_ID + ".mob_wrangler", "Mob Wrangler");
 
         // =====================
+        // ADVANCEMENTS
+        // =====================
+
+        add("advancements." + CavemansBuyableMobEggs.MOD_ID + ".mob_wrangler.title", "Mob Wrangler");
+        add("advancements." + CavemansBuyableMobEggs.MOD_ID + ".mob_wrangler.descr", "Place a spawner in the world");
+
+        // =====================
         // CONFIG
         // =====================
 

@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "placed_spawner": {
+      "conditions": {
+        "location": [
+          {
+            "block": "minecraft:spawner",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "description": {
+      "translate": "advancements.cavemans_buyable_mob_eggs.mob_wrangler.descr"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spawner"
+    },
+    "title": {
+      "translate": "advancements.cavemans_buyable_mob_eggs.mob_wrangler.title"
+    }
+  },
+  "requirements": [
+    [
+      "placed_spawner"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

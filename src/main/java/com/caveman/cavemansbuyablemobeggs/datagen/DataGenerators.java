@@ -39,5 +39,9 @@ public class DataGenerators {
         event.createBlockAndItemTags(
                 (output, lookup) -> new ModBlockTagsProvider(output, lookup, CavemansBuyableMobEggs.MOD_ID, event.getExistingFileHelper()),
                 (output, lookup, blockTags) -> new ModItemTagsProvider(output, lookup, blockTags));
+
+        event.createProvider((output, lookup) -> new ModPoiTypeTagsProvider(output, lookup, CavemansBuyableMobEggs.MOD_ID, event.getExistingFileHelper()));
+
+        event.createProvider((output, lookup) -> new ModAdvancementProvider(output, lookup, event.getExistingFileHelper()));
     }
 }

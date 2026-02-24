@@ -4,6 +4,8 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 
 import com.caveman.cavemansbuyablemobeggs.CavemansBuyableMobEggs;
 
@@ -18,6 +20,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider lookupProvider) {
-        // Add block tags when needed
+        // Spawner requires iron pickaxe or better to break and drop (append to vanilla tag)
+        tag(BlockTags.NEEDS_IRON_TOOL).replace(false).add(Blocks.SPAWNER);
     }
 }

@@ -1,150 +1,114 @@
 package com.caveman.cavemansbuyablemobeggs.villager;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.level.block.Blocks;
 
-import com.caveman.cavemansbuyablemobeggs.Config;
-
-import com.caveman.cavemansbuyablemobeggs.CavemansBuyableMobEggs;
-
+import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
-/**
- * Registers Mob Wrangler villager trades by level:
- * 1 = CREATURE, 2 = AMBIENT + WATER_*, 3 = MONSTER, 4 = nether mobs (see tag), 5 = boss mobs (config).
- */
-public final class MobWranglerTrades {
-
-    private static final int EMERALD_COST = 3;
-    private static final int CHICKEN_EGG_COST = 1;
-    private static final int MAX_TRADES = 12;
-    private static final int VILLAGER_XP = 2;
-    private static final float PRICE_MULT = 0.05f;
-
-    /** Entity type ids from our nether_mobs entity tag (no registry lookup in event). */
-    private static final Set<ResourceLocation> NETHER_MOB_IDS = Set.of(
-            ResourceLocation.withDefaultNamespace("blaze"),
-            ResourceLocation.withDefaultNamespace("ghast"),
-            ResourceLocation.withDefaultNamespace("hoglin"),
-            ResourceLocation.withDefaultNamespace("magma_cube"),
-            ResourceLocation.withDefaultNamespace("piglin"),
-            ResourceLocation.withDefaultNamespace("piglin_brute"),
-            ResourceLocation.withDefaultNamespace("strider"),
-            ResourceLocation.withDefaultNamespace("wither_skeleton"),
-            ResourceLocation.withDefaultNamespace("zoglin")
-    );
-
-    /** Entity type ids from our boss_mobs entity tag. */
-    private static final Set<ResourceLocation> BOSS_MOB_IDS = Set.of(
-            ResourceLocation.withDefaultNamespace("ender_dragon"),
-            ResourceLocation.withDefaultNamespace("wither")
-    );
+public class MobWranglerTrades {
 
     public static void registerTrades(VillagerTradesEvent event) {
         if (event.getType() != ModVillagers.MOB_WRANGLER.get()) {
             return;
         }
 
-        List<List<ItemStack>> eggsByLevel = partitionEggsByLevel();
+        var trades = event.getTrades();
 
-        for (int level = 1; level <= 5; level++) {
-            int index = level - 1;
-            if (index >= eggsByLevel.size()) continue;
-            for (ItemStack egg : eggsByLevel.get(index)) {
-                event.getTrades().get(level).add(createTrade(egg));
-            }
-        }
+        // Level 1 – creature/passive spawn eggs (5 emeralds + 1 egg → spawn egg)
+        addSpawnEggTrade(trades.get(1), Items.ALLAY_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.AXOLOTL_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.BAT_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.CAMEL_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.CAT_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.CHICKEN_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.COD_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.COW_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.DONKEY_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.FOX_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.FROG_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.GLOW_SQUID_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.HORSE_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.MOOSHROOM_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.MULE_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.OCELOT_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.PANDA_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.PARROT_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.PIG_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.PUFFERFISH_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.RABBIT_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SALMON_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SHEEP_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SKELETON_HORSE_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SNIFFER_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SNOW_GOLEM_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.SQUID_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.STRIDER_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.TADPOLE_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.TROPICAL_FISH_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.TURTLE_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.VILLAGER_SPAWN_EGG);
+        addSpawnEggTrade(trades.get(1), Items.ZOMBIE_HORSE_SPAWN_EGG);
+
+        // Level 1 – monster/hostile spawn eggs (same price, lower max uses)
+        addSpawnEggTradeLow(trades.get(1), Items.BLAZE_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.CAVE_SPIDER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.CREEPER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.DROWNED_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ENDERMAN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ENDERMITE_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.EVOKER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.GHAST_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.GUARDIAN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.HOGLIN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.HUSK_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.MAGMA_CUBE_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.PHANTOM_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.PIGLIN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.PIGLIN_BRUTE_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.PILLAGER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.RAVAGER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.SHULKER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.SILVERFISH_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.SKELETON_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.SLIME_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.SPIDER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.STRAY_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.VEX_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.VINDICATOR_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.WITCH_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.WITHER_SKELETON_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ZOGLIN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ZOMBIE_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ZOMBIE_VILLAGER_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(1), Items.ZOMBIFIED_PIGLIN_SPAWN_EGG);
+
+        // Level 2 – egg bulk buy, spawner sell
+        trades.get(2).add(new BasicItemListing(new ItemStack(Items.EGG, 4), new ItemStack(Items.EMERALD), 50, 5, 0.05f));
+        trades.get(2).add(new BasicItemListing(new ItemStack(Blocks.SPAWNER), new ItemStack(Blocks.EMERALD_BLOCK, 3), 10, 5, 0.05f));
+
+        // Level 3 – emerald/egg exchange, spawner for emerald blocks
+        trades.get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 3), new ItemStack(Items.EGG, 8), 10, 5, 0.05f));
+        trades.get(3).add(new BasicItemListing(new ItemStack(Blocks.EMERALD_BLOCK, 10), new ItemStack(Blocks.SPAWNER), 10, 5, 0.05f));
+
+        // Level 4 – elder guardian, wither
+        addSpawnEggTradeLow(trades.get(4), Items.ELDER_GUARDIAN_SPAWN_EGG);
+        addSpawnEggTradeLow(trades.get(4), Items.WITHER_SPAWN_EGG);
+
+        // Level 5 – ender dragon
+        addSpawnEggTradeLow(trades.get(5), Items.ENDER_DRAGON_SPAWN_EGG);
     }
 
-    private static List<List<ItemStack>> partitionEggsByLevel() {
-        List<ItemStack> level1 = new ArrayList<>(); // CREATURE
-        List<ItemStack> level2 = new ArrayList<>(); // AMBIENT, WATER_*
-        List<ItemStack> level3 = new ArrayList<>(); // MONSTER
-        List<ItemStack> level4 = new ArrayList<>(); // nether mobs
-        List<ItemStack> level5 = new ArrayList<>(); // boss mobs
-
-        for (Item eggItem : TradeableSpawnEggs.getTradeableSpawnEggs()) {
-            if (!(eggItem instanceof SpawnEggItem spawnEgg)) continue;
-            ItemStack eggStack = new ItemStack(eggItem);
-
-            // API level override: addon requested a specific trade level (1–5)
-            var overrideLevel = TradeableSpawnEggs.getLevelOverride(eggItem);
-            if (overrideLevel.isPresent()) {
-                int level = overrideLevel.getAsInt();
-                switch (level) {
-                    case 1 -> level1.add(eggStack.copy());
-                    case 2 -> level2.add(eggStack.copy());
-                    case 3 -> level3.add(eggStack.copy());
-                    case 4 -> level4.add(eggStack.copy());
-                    case 5 -> level5.add(eggStack.copy());
-                    default -> { }
-                }
-                continue;
-            }
-
-            EntityType<?> type = spawnEgg.getType(eggStack);
-            if (type == null) continue;
-
-            ResourceLocation typeId = BuiltInRegistries.ENTITY_TYPE.getKey(type);
-
-            // Level 5: boss mobs (config)
-            if (Config.ENABLE_BOSS_MOB_TRADES.get() && BOSS_MOB_IDS.contains(typeId)) {
-                level5.add(eggStack.copy());
-                logSpawnEggLevel(typeId, type.getCategory(), 5);
-                continue;
-            }
-
-            // Level 4: nether mobs
-            if (NETHER_MOB_IDS.contains(typeId)) {
-                level4.add(eggStack.copy());
-                logSpawnEggLevel(typeId, type.getCategory(), 4);
-                continue;
-            }
-
-            // Levels 1–3 by category
-            MobCategory category = type.getCategory();
-            int assignedLevel;
-            switch (category) {
-                case CREATURE -> { level1.add(eggStack.copy()); assignedLevel = 1; }
-                case AMBIENT, WATER_CREATURE, WATER_AMBIENT, UNDERGROUND_WATER_CREATURE, AXOLOTLS -> { level2.add(eggStack.copy()); assignedLevel = 2; }
-                case MONSTER -> { level3.add(eggStack.copy()); assignedLevel = 3; }
-                default -> { level2.add(eggStack.copy()); assignedLevel = 2; } // MISC etc.
-            }
-            logSpawnEggLevel(typeId, category, assignedLevel);
-        }
-
-        return List.of(level1, level2, level3, level4, level5);
+    private static void addSpawnEggTrade(List<VillagerTrades.ItemListing> list, Item egg) {
+        list.add(new BasicItemListing(new ItemStack(Items.EMERALD, 5), new ItemStack(Items.EGG), new ItemStack(egg), 20, 5, 0.05f));
     }
 
-    /** When system property cavemans_buyable_mob_eggs.dumpEggLevels is true, log every spawn egg and its level for README verification. */
-    private static void logSpawnEggLevel(ResourceLocation typeId, MobCategory category, int level) {
-        if (!Boolean.getBoolean("cavemans_buyable_mob_eggs.dumpEggLevels")) return;
-        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CavemansBuyableMobEggs.MOD_ID);
-        logger.info("[Mob Wrangler] Level {} | {} | category={}", level, typeId, category);
-    }
-
-    private static VillagerTrades.ItemListing createTrade(ItemStack spawnEgg) {
-        return (trader, random) -> new MerchantOffer(
-                new ItemCost(Items.EMERALD, EMERALD_COST),
-                Optional.of(new ItemCost(Items.EGG, CHICKEN_EGG_COST)),
-                spawnEgg.copy(),
-                MAX_TRADES,
-                VILLAGER_XP,
-                PRICE_MULT
-        );
+    private static void addSpawnEggTradeLow(List<VillagerTrades.ItemListing> list, Item egg) {
+        list.add(new BasicItemListing(new ItemStack(Items.EMERALD, 5), new ItemStack(Items.EGG), new ItemStack(egg), 10, 5, 0.05f));
     }
 }
