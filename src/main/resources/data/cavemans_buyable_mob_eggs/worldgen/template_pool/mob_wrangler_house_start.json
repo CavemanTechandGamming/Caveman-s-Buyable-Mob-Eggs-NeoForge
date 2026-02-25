@@ -1,21 +1,19 @@
 {
-  "name": "cavemans_buyable_mob_eggs:mob_wrangler_house",
+  "name": "cavemans_buyable_mob_eggs:mob_wrangler_house_start",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "cavemans_buyable_mob_eggs:mob_wrangler_house",
+        "location": "cavemans_buyable_mob_eggs:mob_wrangler_house_ground_floor",
         "projection": "rigid",
         "processors": {
           "processors": [
             {
               "processor_type": "minecraft:block_ignore",
               "blocks": [
-                {
-                  "Name": "minecraft:structure_block"
-                }
+                {"Name": "minecraft:structure_block"}
               ]
             }
           ]

@@ -3,12 +3,14 @@ package com.caveman.cavemansbuyablemobeggs.villager;
 import java.util.List;
 import java.util.random.RandomGenerator;
 
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -36,10 +38,10 @@ public class MobWranglerLoot {
             return;
         }
 
-        RandomGenerator random = villager.level().getRandom();
+        RandomGenerator random = (RandomGenerator) villager.level().getRandom();
         int looting = 0;
         if (event.getSource().getEntity() instanceof LivingEntity killer) {
-            looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.LOOTING, killer);
+            looting = EnchantmentHelper.getEnchantmentLevel((Holder<Enchantment>) Enchantments.LOOTING, killer);
         }
         Level level = villager.level();
         double x = villager.getX();
